@@ -15,5 +15,7 @@ RUN grunt prod
 
 FROM nginx:1.19.3
 COPY --from=builder /usr/src/app/dist/community-app /usr/share/nginx/html
-EXPOSE 80
+COPY ./nginx-conf/* /etc/nginx/conf.d/
+COPY default.conf.template /etc/nginx/conf.d/default.conf
+EXPOSE 80 443
 CMD ["nginx", "-g", "daemon off;"]
