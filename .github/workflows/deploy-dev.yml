@@ -5,7 +5,7 @@ on:
       - fiter/latam/dev
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: leonardohildt/lhildt-testing
+  IMAGE_NAME: leonardohildt/mifos-app
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   REPOSITORY_NAME: ${{ secrets.REPOSITORY_NAME}}
