@@ -47,5 +47,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
-          labels: ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.labels }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
