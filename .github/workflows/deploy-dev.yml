@@ -69,7 +69,7 @@ jobs:
 
       - name: Switch out image tag
         run: |
-          cd manifests
+          cd poc4/manifests
           kustomize edit set image ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
 
       - name: Commit and push
