@@ -45,6 +45,8 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
+        env:
+          ARGO_IMAGE: ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
         with:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
@@ -59,7 +61,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: leomax060778/argocd-poc
-          #token: ${{ secrets.INFRA_REPO_TOKEN }}
           path: poc4/manifests
 
       - name: Setup Kustomize
@@ -69,7 +70,7 @@ jobs:
 
       - name: Switch out image tag
         run: |
-          kustomize edit set image ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
+          kustomize edit set image $ARGO_IMAGE
 
       - name: Commit and push
         run: |
