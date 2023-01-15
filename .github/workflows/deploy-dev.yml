@@ -49,3 +49,33 @@ jobs:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
+
+  deploy:
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout remote repo
+        uses: actions/checkout@v2
+        with:
+          repository: argocd-poc
+          #token: ${{ secrets.INFRA_REPO_TOKEN }}
+          path: poc4
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Switch out image tag
+        run: |
+          cd argocd-poc/manifests
+          kustomize edit set image ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
+
+      - name: Commit and push
+        run: |
+          cd leonardohildt/mifos-app
+          git config --local user.email leonardohildt@gmail.com
+          git config --local user.name leomax060778
+          git commit -am "updates image tag"
+          git push
