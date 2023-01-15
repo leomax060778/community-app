@@ -60,7 +60,7 @@ jobs:
         with:
           repository: leomax060778/argocd-poc
           #token: ${{ secrets.INFRA_REPO_TOKEN }}
-          path: poc4
+          path: poc4/manifests
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -69,7 +69,6 @@ jobs:
 
       - name: Switch out image tag
         run: |
-          cd poc4/manifests
           kustomize edit set image ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
 
       - name: Commit and push
