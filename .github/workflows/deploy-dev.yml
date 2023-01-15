@@ -58,7 +58,7 @@ jobs:
       - name: Checkout remote repo
         uses: actions/checkout@v2
         with:
-          repository: argocd-poc
+          repository: leomax060778/argocd-poc
           #token: ${{ secrets.INFRA_REPO_TOKEN }}
           path: poc4
 
@@ -74,7 +74,7 @@ jobs:
 
       - name: Commit and push
         run: |
-          cd leonardohildt/mifos-app
+          cd  leomax060778/argocd-poc
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git commit -am "updates image tag"
