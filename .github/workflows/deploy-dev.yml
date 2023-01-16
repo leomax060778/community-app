@@ -86,9 +86,4 @@ jobs:
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git commit -am "Bump docker tag"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+          git push
