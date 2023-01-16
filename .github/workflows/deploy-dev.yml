@@ -51,7 +51,7 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
 
       - name: Check out code
-          uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -69,6 +69,7 @@ jobs:
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git commit -am "Bump docker tag"
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
