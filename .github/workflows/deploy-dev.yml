@@ -73,7 +73,7 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           cd poc4/manifests
-          kustomize edit set image ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
+          kustomize edit set image ${{ steps.metadata.outputs.tags }}
           cat kustomization.yaml
 
       - name: Commit files
