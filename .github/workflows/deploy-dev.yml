@@ -61,10 +61,11 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
-      - name: Check out code
+      - name: Checkout remote repo
         uses: actions/checkout@v3
         with:
-          ref: fiter/latam/dev
+          repository: leomax060778/argocd-poc
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
