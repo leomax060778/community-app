@@ -52,6 +52,8 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          ref: fiter/latam/dev
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
