@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mifos
+  namespace: mifos
+spec:
+  destination:
+    namespace: mifos
+    server: "https://kubernetes.default.svc"
+  source:
+    path: poc4/manifests
+    repoURL: "https://github.com/leomax060778/argocd-poc"
+    targetRevision: HEAD
+  project: default
+  # for manual sync, just set syncPolicy: {}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false

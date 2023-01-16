@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mifos
+  namespace: mifos
+  labels:
+    app: mifos
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mifos
+  template:
+    metadata:
+      labels:
+        app: mifos
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+        - name: mifos
+          image: leonardohildt/mifos-app
+          ports:
+            - name: http
+              containerPort: 1337
