@@ -20,12 +20,12 @@ jobs:
       checks: read
       contents: write
       deployments: read
-      issues: read
+      issues: write
       discussions: read
       packages: read
       pages: read
-      pull-requests: read
-      repository-projects: read
+      pull-requests: write
+      repository-projects: write
       security-events: read
       statuses: read
     steps:
@@ -66,6 +66,7 @@ jobs:
         with:
           repository: leomax060778/argocd-poc
           token: ${{ secrets.GITHUB_TOKEN }}
+          path: argocd-poc
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -74,12 +75,14 @@ jobs:
 
       - name: Update Kubernetes resources
         run: |
+          cd argocd-poc/argocd-poc
           cd poc4/manifests
           kustomize edit set image ${{ steps.metadata.outputs.tags }}
           cat kustomization.yaml
 
       - name: Commit files
         run: |
+          cd argocd-poc/argocd-poc
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git commit -am "Bump docker tag"
@@ -88,3 +91,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
