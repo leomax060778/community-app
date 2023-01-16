@@ -50,12 +50,6 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
-  deploy:
-    name: argocd-configure
-    needs: build-and-push-image
-    runs-on: self-hosted
-
-    steps:
       - name: Checkout remote repo
         uses: actions/checkout@v2
         with:
@@ -69,7 +63,7 @@ jobs:
 
       - name: Switch out image tag
         run: |
-          kustomize edit set image "${{ needs.steps.metadata.outputs.tags }}"
+          kustomize edit set image ${{ env.IMAGE_NAME }}:"${{ needs.steps.metadata.outputs.tags }}"
 
       - name: Commit and push
         run: |
