@@ -62,7 +62,7 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: fiter/latam/dev
 
