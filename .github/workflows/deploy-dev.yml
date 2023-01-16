@@ -45,8 +45,6 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
-        env:
-          ARGO_IMAGE: ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.tags }}
         with:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
@@ -70,7 +68,7 @@ jobs:
 
       - name: Switch out image tag
         run: |
-          kustomize edit set image $ARGO_IMAGE
+          kustomize edit set image "${{ needs.steps.metadata.outputs.tags }}"
 
       - name: Commit and push
         run: |
