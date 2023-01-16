@@ -6,4 +6,4 @@ resources:
 - service.yaml
 images:
 - name: leonardohildt/mifos-app
-  newTag: bacef2c
+  newTag: fc2ffba
