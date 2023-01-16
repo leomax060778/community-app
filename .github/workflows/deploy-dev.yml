@@ -50,12 +50,18 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
+  deploy:
+    name: argocd-configure
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout remote repo
         uses: actions/checkout@v2
         with:
-          repository: leomax060778/community-app
-          token: ${{ secrets.GITHUB_TOKEN}}
-          path: app
+          repository: leomax060778/argocd-poc
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: infra-repo
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -64,11 +70,12 @@ jobs:
 
       - name: Switch out image tag
         run: |
-          cd poc4/manifests
-          kustomize edit set image ${{ env.IMAGE_NAME }}:"${{ needs.steps.metadata.outputs.tags }}"
+          cd infra-repo/argocd-poc
+          kustomize edit set image "${{ needs.steps.metadata.outputs.tags }}"
 
       - name: Commit and push
         run: |
+          cd  infra-repo/argocd-poc
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git commit -am "updates image tag"
