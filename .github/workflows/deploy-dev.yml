@@ -65,7 +65,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: leomax060778/argocd-poc
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SSH_FINGERPRINT }}
           path: argocd-poc
 
       - name: Setup Kustomize
