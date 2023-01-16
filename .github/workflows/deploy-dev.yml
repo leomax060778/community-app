@@ -51,10 +51,10 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
 
       - name: Checkout remote repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: leomax060778/argocd-poc
-          path: poc4/manifests
+          path: infra-repo
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -63,6 +63,8 @@ jobs:
 
       - name: Switch out image tag
         run: |
+          cd infra-repo/argocd-poc
+          cd poc4/manifests
           kustomize edit set image ${{ env.IMAGE_NAME }}:"${{ needs.steps.metadata.outputs.tags }}"
 
       - name: Commit and push
