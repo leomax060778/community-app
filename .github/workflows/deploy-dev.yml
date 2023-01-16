@@ -50,6 +50,13 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
+      - name: Checkout remote repo
+        uses: actions/checkout@v2
+        with:
+          repository: leomax060778/community-app
+          token: ${{ secrets.GITHUB_TOKEN}}
+          path: app
+
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
         with:
@@ -59,6 +66,10 @@ jobs:
         run: |
           cd poc4/manifests
           kustomize edit set image ${{ env.IMAGE_NAME }}:"${{ needs.steps.metadata.outputs.tags }}"
+
+      - add_ssh_keys:
+          fingerprints:
+            - "$SSH_FINGERPRINT"
 
       - name: Commit and push
         run: |
