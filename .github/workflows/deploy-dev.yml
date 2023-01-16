@@ -67,10 +67,6 @@ jobs:
           cd poc4/manifests
           kustomize edit set image ${{ env.IMAGE_NAME }}:"${{ needs.steps.metadata.outputs.tags }}"
 
-      - add_ssh_keys:
-          fingerprints:
-            - "$SSH_FINGERPRINT"
-
       - name: Commit and push
         run: |
           git config --local user.email leonardohildt@gmail.com
