@@ -84,10 +84,9 @@ jobs:
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
           cd poc4
-          git config -l | grep url
           git config --global credential.helper store
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git add manifests
-          git commit -am "Bump docker tag"
+          git commit -am "Bump docker tag to ${{ steps.metadata.outputs.tags }}"
           git push
