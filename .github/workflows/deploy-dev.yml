@@ -84,6 +84,7 @@ jobs:
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
           cd poc4
+          git config --global credential.helper store
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
           git add manifests
