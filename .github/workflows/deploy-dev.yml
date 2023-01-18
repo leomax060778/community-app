@@ -65,7 +65,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: leomax060778/argocd-poc
-          token: ${{ secrets.SSH_FINGERPRINT }}
+          token: ${{ secrets.PTA }}
           path: argocd-poc
 
       - name: Setup Kustomize
@@ -84,6 +84,7 @@ jobs:
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
           cd poc4
+          git config -l | grep url
           git config --global credential.helper store
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
