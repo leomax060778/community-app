@@ -66,6 +66,7 @@ jobs:
         with:
           repository: leomax060778/argocd-poc
           token: ${{ secrets.SSH_FINGERPRINT }}
+          path: argocd-poc
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
