@@ -61,6 +61,8 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
+      #Checkout remote repository with your Kubernetes resources
+      #You might need a PTA in order to push the change in the next steps
       - name: Checkout remote repo
         uses: actions/checkout@v3
         with:
@@ -68,11 +70,13 @@ jobs:
           token: ${{ secrets.PTA }}
           path: argocd-poc
 
+      #Setup Kustomize
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
         with:
           kustomize-version: "3.6.1"
 
+      #Edit kubernetes resource (kustomization.yaml) to set the new image just built
       - name: Update Kubernetes resources
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
@@ -80,6 +84,7 @@ jobs:
           kustomize edit set image ${{ steps.metadata.outputs.tags }}
           cat kustomization.yaml
 
+      #Commit and push the updated kubernetes resource into remote repository
       - name: Commit files
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
