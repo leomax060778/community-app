@@ -76,17 +76,17 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
-          cd poc4/manifests
+          cd community-app
           kustomize edit set image ${{ steps.metadata.outputs.tags }}
           cat kustomization.yaml
 
       - name: Commit files
         run: |
           cd /home/runner/work/community-app/community-app/argocd-poc
-          cd poc4
+          cd community-app
           git config --global credential.helper store
           git config --local user.email leonardohildt@gmail.com
           git config --local user.name leomax060778
-          git add manifests
+          git add -A
           git commit -am "Bump docker tag to ${{ steps.metadata.outputs.tags }}"
           git push
